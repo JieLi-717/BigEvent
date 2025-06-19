@@ -1,15 +1,32 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { useRoute, useRouter } from 'vue-router'
+// import {useUserStore} from '@/store/modules/user'
+import {useUserStore} from '@/store/index'
+
+const route = useRoute()
+const router = useRouter()
+const userStore = useUserStore()
+
+const goList = () => {
+  router.push('/list')
+  console.log(route, router)
+}
 </script>
 
 <template>
+  <router-view></router-view>
+  <hr/>
   <header>
     <h1>你好啊</h1>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <el-button @click="$router.push('/home')">首页</el-button>
+    <el-button @click="goList">详情页</el-button>
+    <h1>{{ userStore.token }}</h1>
+    <el-button @click="userStore.AddToken('grhughjghthgtrgt')">登录</el-button>
+    <el-button @click="userStore.RemoveToken()">退出</el-button>
+
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
